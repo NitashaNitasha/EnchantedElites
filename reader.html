@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<title>Display Files</title>
+<style>
+    /* Additional custom styles */
+    .group:hover .overlay {
+        opacity: 0.4;
+    }
+    .overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+</style>
+</head>
+<body>
+
+
+<div class="bg-white py-10">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="sr-only">Products</h2>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1">
+            <div class="group relative">
+                <div class="aspect-h-1/2 aspect-w-1/2 bg-gray-100 overflow-hidden rounded-lg">
+                    <img src="" alt="" id="prod_img" class="object-cover ">
+                    <div class="overlay absolute inset-0 bg-black opacity-50 transition-opacity"></div>
+                </div>
+                <div class="container mt-4">
+                    <h3 id="classify" class="text-xl font-semibold"></h3>
+                    <p id="color" class="mt-2"></p>
+                    <p id="new_gen" class="mt-2"></p>
+                    <p id="price" class="mt-2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to read and display the contents of a file
+    function readFileAndDisplay(fileName, targetElementId) {
+        fetch(fileName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch file');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Display the contents of the file
+                document.getElementById(targetElementId).textContent = data;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById(targetElementId).textContent = 'Error: Failed to fetch file';
+            });
+    }
+
+    // Function to read and display the image file
+    function readImageFile(fileName, targetElementId) {
+        fetch(fileName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch file');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Set the image source
+                document.getElementById(targetElementId).src = data;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById(targetElementId).src = ''; // Clear the image source if an error occurs
+            });
+    }
+
+    // Read and display the contents of each file
+    readFileAndDisplay('color.txt', 'color');
+    readFileAndDisplay('classify.txt', 'classify');
+    readFileAndDisplay('new_gen.txt', 'new_gen');
+    readImageFile('image_path.txt', 'prod_img');
+</script>
+
+</body>
+</html>
