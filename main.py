@@ -7,7 +7,7 @@ import sqlite3
 UPLOADS_FOLDER = 'uploads'
 
 # Set up Generative AI API
-genai.configure(api_key="AIzaSyAwgNVpn_iz6tMhxXb-hl1OUj7aqRvI1fc")  # Replace 'YOUR_API_KEY_HERE' with your actual API key
+genai.configure(api_key='YOUR_API_KEY_HERE')  # Replace 'YOUR_API_KEY_HERE' with your actual API key
 
 def main(filename):
     # Construct the full path to the image file
